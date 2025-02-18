@@ -1,10 +1,10 @@
 import React, { useState, useEffect, useRef } from 'react'
 import Confetti from "react-confetti";
-import StepOne from "./stepOne";
-import StepTwo from "./stepTwo";
-import StepThree from './stepThree';
-import StepFour from './stepFour';
-
+import StepOne from "./Cfp/stepOne";
+import StepTwo from "./Cfp/stepTwo";
+import StepThree from './Cfp/stepThree';
+import StepFour from './Cfp/stepFour';
+import cfpData from "../../config/cfp-data.json"
 const fields = [
   {
     title: "Your Information",
@@ -45,10 +45,11 @@ function Paper() {
   useEffect(() => {
     setHeight(confetiRef.current.clientHeight);
     setWidth(confetiRef.current.clientWidth);
+
   }, []);
   const stepOne =  <StepOne setStep={onStepUpdate} setForm={setFormData} data={formData} />
   let view = stepOne
-  if (step === 4) {
+  if (step === 1) {
     view = stepOne
   }
   if (step === 2) {
@@ -67,26 +68,31 @@ function Paper() {
     );
   }
   if (step === "successful") {
-    setTimeout(() => {
-      setStep(null, 1)
-    }, 6000)
     view = <div  className='flex items-center h-full'>
       <div>
-        <h1 className='text-fainted-white text-4xl font-bold'>Hurray!!!</h1>
-          <h1 className='text-fainted-white text-4xl font-bold mt-6'>Your talk has been submitted successfully</h1>
+          <h1 className='text-2xl text-white font-bold mt-6'>Your talk have been submitted successfully</h1>
       </div>
        <Confetti numberOfPieces={50} width={width} height={height} tweenDuration={40} />
     </div>
   }
 
-  return (
-    <div className="relative mt-10 sm:mt-0" id="forms" ref={confetiRef}>
-      <h1 className="text-white font-bold text-5xl lg:text-3xl">
+    return (
+        <div className="py-28 flex flex-col justify-center items-center" id="forms" ref={confetiRef} data-test="cfp-form">
+          <div>
+          <div className='lg:px-6 mt-5'>
+            <h1 className="text-white font-bold text-5xl lg:text-3xl">
         Submit your talk!
-      </h1>
-      <p className="mt-2 text-fainted-white text-lg">
-        Fill up the form to apply as a speaker for AACoT London Edition.
-      </p>
+            </h1>
+            <p className="mt-2 text-dark-500 text-lg">
+          We are actively accepting speaker applications, <br /> Fill up the form to apply as a speaker.
+        </p>
+        <div className='flex mt-8 justify-between sm:flex-col items-center sm:items-start text-dark-500 text-sm'>
+          <p>
+               P.S. We do not offer travel scholarships or financial support.
+          </p>
+          <p className='sm:mt-4'>Application closes on {cfpData.CallEndDate}</p>
+        </div>
+        </div>
       <div
         className="mt-5"
         style={{
@@ -95,47 +101,26 @@ function Paper() {
       />
       <div className="flex lg:flex-col">
         <div
-          className="w-1/4 lg:hidden"
+          className="lg:hidden"
           style={{
             borderRight: "1px solid #333",
             minHeight: "50vh",
           }}
         >
-          <div className="p-16 lg:p-0 lg:py-2 lg:pr-4 mt-12">
+          <div className="p-6 pr-14 lg:p-0 lg:py-2 lg:pr-4 mt-12">
             {fields.map((field, i) => {
-              const index = i ;
+              const index = i + 1 ;
               return (
                 <div
                       key={field.title}
-                      className='h-[100px]'
+                      className=' w-full'
                 >
                   <div className="flex justify-between">
-                    <div className="md:hidden">
-                      <h3 className="text-white font-bold text-lg">
+                    <div className="sm:hidden my-4">
+                      <h3 className={`font-bold text-lg ${(index <= step && "text-[#E50E99]") || ("text-white")}`}>
                         {field.title}
                       </h3>
-                      <p className="text-fainted-white">{field.description}</p>
-                    </div>
-                    <div className="">
-                      <div
-                        className={`ml-3 w-12 h-12 rounded-full ${
-                          step === index || step > index
-                            ? "bg-tetiary-pink"
-                            : "bg-fainted-gray"
-                        } flex items-center justify-center`}
-                      >
-                        {field.icon}
-                      </div>
-                      <div
-                        className={`${index === 3 && "hidden"}`}
-                        style={{
-                          height: "100%",
-                          borderRight: `1px solid ${
-                            step === index || step > index ? "#E50E99" : "white"
-                          }`,
-                          marginRight: "24px",
-                        }}
-                      />
+                      <p className="text-dark-600">{field.description}</p>
                     </div>
                   </div>
                 </div>
@@ -143,8 +128,8 @@ function Paper() {
             })}
           </div>
         </div>
-        <div className="p-10 lg:p-1">
-          <p className="text-fainted-white">{typeof(step) === 'number' && `Step ${step}/4`}</p>
+        <div className="p-10 ml-24 lg:ml-0">
+          <p className="text-dark-400">{typeof(step) === 'number' && `Step ${step}/4`}</p>
           {view}
           <div
             className="absolute bottom-0 right-0 rotate-0 opacity-50 sm:hidden"
@@ -155,6 +140,7 @@ function Paper() {
           </div>
         </div>
       </div>
+          </div>
       </div>
   )
 }

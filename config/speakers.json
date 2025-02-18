@@ -1,0 +1,47 @@
+[
+	{
+		"location": "",
+		"city": "All",
+		"lists": []
+	},
+	{
+		"city": "Singapore",
+		"location": "Singapore, Singapore",
+		"cfp": true,
+		"lists": [],
+		"agenda": null
+	},
+	{
+		"city": "Munich",
+		"location": "Munich, Germany",
+		"lists": [],
+		"agenda": null
+	},
+	{
+		"city": "Lagos",
+		"location": "Lagos, Nigeria",
+		"lists": [],
+		"agenda": null
+	},
+	{
+		"city": "London",
+		"location": "London, UK",
+		"lists": [],
+		"agenda": null
+	},
+	{
+		"city": "Online",
+		"location": "AsyncAPI YouTube Channel",
+		"lists": [],
+		"agenda": null
+	},
+	{
+		"city": "Paris",
+		"location": "Paris, France",
+		"lists": [],
+		"agenda": null
+	}
+
+	
+	
+]
